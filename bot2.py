@@ -23,7 +23,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 path = r"/home/osman/Desktop/chromedriver"
 browser = webdriver.Chrome(path)
 browser.get("http://begen.co/index.php")
-a = raw_input("deneme")
+a = raw_input("Token Bekleniyor")
 #token = browser.find_element_by_name("token")
 #token.send_keys(entertoken)
 log_but2 = "//input[@class='submit']"
@@ -31,29 +31,68 @@ browser.find_element_by_xpath(log_but2).click()
 log_but3= "//input[@class='greyishBtn']"
 browser.find_element_by_xpath(log_but3).click()
 
-def kaydet(ca):
+def kaydet():
+	time.sleep(2)
 	ab = browser.page_source.encode("utf-8")
 	ls = str(ab)
+	ca = raw_input("Kayitli Olmayan Captcha'yi Girin : ")
 	reg = re.search('<img src=.+alt=',ls)
 	kaydet1 = open("cap.txt","a+")
 	yazdir = reg.group().replace('<img src="/l/captcha.php?_CAPTCHA&amp;t=',"")[:4] + ":" + ca + "\n"
 	kaydet1.writelines(yazdir)
 	kaydet1.close()
-
-
-def fonk():
+	print "Kayitli Olmayan Captcha Kaydedildi."
+	captcha = browser.find_element_by_name("captcha")
+	captcha.send_keys(ca)
+	log_but4 = "//input[@type='submit']"
+	browser.find_element_by_xpath(log_but4).click()
+	time.sleep(1)
 	while(1):
+		if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
+			browser.find_element_by_xpath("//a[@href ='../']").click()
+			time.sleep(4)
+			fonk()
+		elif not 'src="index/success.png"' in browser.page_source.encode("utf-8"):
+			while(1):
+				time.sleep(2)
+				if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
+					browser.find_element_by_xpath("//a[@href ='../']").click()
+					time.sleep(4)
+					fonk()
+				if  'Her 50 saniyede' in browser.page_source.encode("utf-8"):
+					browser.find_element_by_xpath("//a[@href ='../']").click()
+					time.sleep(4)
+					fonk()
+				if "Hata Kodu:104" in browser.page_source.encode("utf-8"):
+					browser.find_element_by_xpath("//a[@href ='../']").click()
+					time.sleep(4)
+					fonk()
 
-		head = browser.find_element_by_xpath("//input[contains(@class, 'validate[required]')]")
-		head.send_keys("https://www.facebook.com/NewBeTurkey/posts/611801562340285")
-		log_but4= "//input[@class='greyishBtn submitForm']"
-		browser.find_element_by_xpath(log_but4).click()
-		ca = raw_input("gir bakam : ")
+
+
+			else:
+				time.sleep(2)
+
+def captchaKaydet(ab1,ls1):
+	time.sleep(5)
+	reg1 = re.search('<img src=.+alt=',ls1)
+	af = open("cap.txt")
+	re1 = af.read()
+	time.sleep(6)
+	regex = reg1.group().replace('<img src="/l/captcha.php?_CAPTCHA&amp;t=',"")[:4]
+	print "Captcha İd = %s" %regex
+	if regex in re1:
+		af1 = open("cap.txt")
+		re2 = af1.readlines()
+
+		for i in re2:
+
+			if regex in i:
+				ay = i.split(":")
+				print "Kayitli Captcha Bulundu"
 		captcha = browser.find_element_by_name("captcha")
-		captcha.send_keys(ca)
-		kaydet(ca)
-		log_but4 = "//input[@type='submit']"
-		browser.find_element_by_xpath(log_but4).click()
+		captcha.send_keys(ay[1])
+		time.sleep(2)
 		time.sleep(1)
 		while(1):
 			if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
@@ -75,14 +114,38 @@ def fonk():
 						browser.find_element_by_xpath("//a[@href ='../']").click()
 						time.sleep(4)
 						fonk()
-
-
-
 			else:
 				time.sleep(2)
 
-fonk()
+	if not regex in re1:
+		kaydet()			
+		
+
+	
+	#captcha = browser.find_element_by_name("captcha")
+	#captcha.send_keys(ay[1])
+	
+
+
+			
+			#log_but4 = "//input[@type='submit']"
+			#browser.find_element_by_xpath(log_but4).click()
 
 
 
+def fonk():
+	while(1):
 
+		head = browser.find_element_by_xpath("//input[contains(@class, 'validate[required]')]")
+		head.send_keys("This is facebook POST share location")
+		log_but4= "//input[@class='greyishBtn submitForm']"
+		browser.find_element_by_xpath(log_but4).click()
+		time.sleep(1)
+		ab1 = browser.page_source.encode("utf-8")
+		ls1 = str(ab1)
+		captchaKaydet(ab1,ls1)
+		#captcha = browser.find_element_by_name("captcha")
+		#captcha.send_keys(ca)
+		#kaydet(ca)
+		#log_but4 = "//input[@type='submit']"
+		#browser.find_element_by_xpath(log_but4).click()
