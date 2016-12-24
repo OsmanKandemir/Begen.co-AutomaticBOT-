@@ -20,9 +20,19 @@ from selenium.common.exceptions import NoSuchElementException
 #entertoken = raw_input("Please Enter The Your Token : ")
 #likelink = raw_input("Please Enter The Your Share Link : ")
 
+
+def pop():
+	browser.switch_to.window(browser.window_handles[-1])
+	# Close the new window
+	browser.close()
+	# Switch back to original browser (first window)
+	browser.switch_to.window(browser.window_handles[0])
+
+
+
 try:
 	
-	link = "https://www.facebook.com/NewBet/posts/1310330502359232"
+	link = "https://www.facebook.com/BetLazut/posts/1311931392199143"
 	path = r"/home/osman/Desktop/chromedriver"
 	browser = webdriver.Chrome(path)
 	browser.get("http://begen.co/index.php")
@@ -55,6 +65,8 @@ try:
 		while(1):
 			if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
 				browser.find_element_by_xpath("//a[@href ='../']").click()
+				if len(browser.window_handles) >=2:
+					pop()
 				time.sleep(4)
 				fonk()
 			elif not 'src="index/success.png"' in browser.page_source.encode("utf-8"):
@@ -62,25 +74,40 @@ try:
 					time.sleep(2)
 					if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
 						browser.find_element_by_xpath("//a[@href ='../']").click()
+						if len(browser.window_handles) >=2:
+
+							pop()
 						time.sleep(4)
 						fonk()
 					if  'Her 50 saniyede' in browser.page_source.encode("utf-8"):
 						browser.find_element_by_xpath("//a[@href ='../']").click()
+						if len(browser.window_handles) >=2:
+							pop()
 						time.sleep(4)
 						fonk()
 					if "Hata Kodu:104" in browser.page_source.encode("utf-8"):
 						browser.find_element_by_xpath("//a[@href ='../']").click()
+						if len(browser.window_handles) >=2:
+							pop()
 						time.sleep(4)
 						fonk()
 					if "Hata Kodu:107" in browser.page_source.encode("utf-8"):
 						browser.find_element_by_xpath("//a[@href ='../']").click()
+						if len(browser.window_handles) >=2:
+							pop()
 						time.sleep(4)
 						fonk()
 					if "Facebooktan kaynaklanan" in browser.page_source.encode("utf-8"):
-						browser.find_element_by_xpath("//a[@href ='../']").click()
-						time.sleep(4)
-						fonk()
-
+						while(1):
+							browser.get("http://begen.co/index.php")
+							head = browser.find_element_by_xpath("//input[contains(@class, 'validate[required]')]")
+							head.send_keys(link)
+							log_but4= "//input[@class='greyishBtn submitForm']"
+							browser.find_element_by_xpath(log_but4).click()
+							time.sleep(1)
+							ab1 = browser.page_source.encode("utf-8")
+							ls1 = str(ab1)
+							captchaKaydet(ab1,ls1)
 
 
 				else:
@@ -134,6 +161,8 @@ try:
 			while(1):
 				if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
 					browser.find_element_by_xpath("//a[@href ='../']").click()
+					if len(browser.window_handles) >=2:
+						pop()
 					time.sleep(4)
 					fonk()
 				elif not 'src="index/success.png"' in browser.page_source.encode("utf-8"):
@@ -141,24 +170,40 @@ try:
 						time.sleep(2)
 						if 'src="index/success.png"' in browser.page_source.encode("utf-8"):
 							browser.find_element_by_xpath("//a[@href ='../']").click()
+							if len(browser.window_handles) >=2:
+								pop()
 							time.sleep(4)
 							fonk()
 						if  'Her 50 saniyede' in browser.page_source.encode("utf-8"):
 							browser.find_element_by_xpath("//a[@href ='../']").click()
+							if len(browser.window_handles) >=2:
+								pop()
 							time.sleep(4)
 							fonk()
 						if "Hata Kodu:104" in browser.page_source.encode("utf-8"):
 							browser.find_element_by_xpath("//a[@href ='../']").click()
+							if len(browser.window_handles) >=2:
+								pop()
 							time.sleep(4)
 							fonk()
 						if "Hata Kodu:107" in browser.page_source.encode("utf-8"):
 							browser.find_element_by_xpath("//a[@href ='../']").click()
+							if len(browser.window_handles) >=2:
+								pop()
 							time.sleep(4)
 							fonk()
 						if "Facebooktan kaynaklanan" in browser.page_source.encode("utf-8"):
-							browser.find_element_by_xpath("//a[@href ='../']").click()
-							time.sleep(4)
-							fonk()
+							while(1):
+								browser.get("http://begen.co/index.php")
+								head = browser.find_element_by_xpath("//input[contains(@class, 'validate[required]')]")
+								head.send_keys(link)
+								log_but4= "//input[@class='greyishBtn submitForm']"
+								browser.find_element_by_xpath(log_but4).click()
+								time.sleep(1)
+								ab1 = browser.page_source.encode("utf-8")
+								ls1 = str(ab1)
+								captchaKaydet(ab1,ls1)
+
 				else:
 					time.sleep(2)
 
@@ -196,7 +241,7 @@ try:
 	fonk()
 
 
-except NoSuchElementException:
+except AttributeError,NoSuchElementException:
 	print "reklam"
 	while(1):
 
@@ -209,4 +254,3 @@ except NoSuchElementException:
 		ab1 = browser.page_source.encode("utf-8")
 		ls1 = str(ab1)
 		captchaKaydet(ab1,ls1)
-
