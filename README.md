@@ -11,6 +11,8 @@ Chrome Driver Download  Link : https://sites.google.com/a/chromium.org/chromedri
 
 How To Use : First we have to take the token in a manual manner because there is a problem with old token and ad click on the site then paste the token and run the program with the enter key before logging in and The program and site will run smoothly with a loop after you've closed the ads up to 10 times ,If you do not remember the last unregistered captcha you will enter and register and you will continue to use the captchlar afterwards.
 
+or The best add-on you can use for Chrome ads : https://chrome.google.com/webstore/detail/fair-adblocker-by-stands/lgblnfidahcdcjddiepkckcfdhpknnjh
+
 Operation System :
 
                 DISTRIB_ID=Ubuntu
