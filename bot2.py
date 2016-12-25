@@ -32,7 +32,7 @@ def pop():
 
 try:
 	
-	link = "https://www.facebook.com/BetLazut/posts/1311931392199143"
+	link = raw_input("Lutfen Linki Girin : ")
 	path = r"/home/osman/Desktop/chromedriver"
 	browser = webdriver.Chrome(path)
 	browser.get("http://begen.co/index.php")
